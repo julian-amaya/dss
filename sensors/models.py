@@ -2,15 +2,15 @@ from django.db import models
 
 # Create your models here.
 
+PROBLEMA = (
+    (0, 'Normal')
+    (1, 'Alerta Interna defectuoso'),
+    (2, 'Alerta Interna ataque'),
+    (3, 'Alerta Ataque'),
+    (4, 'Alerta Defectuoso'),
+)
 
 class ValorSensor(models.Model):
-    PROBLEMA = (
-        (0, 'Normal')
-        (1, 'Alerta Interna defectuoso'),
-        (2, 'Alerta Interna ataque'),
-        (3, 'Alerta Ataque'),
-        (4, 'Alerta Defectuoso'),
-    )
     fecha_hora = models.DateTimeField()
     valor = models.IntegerField()
     num_sensor = models.IntegerField()
