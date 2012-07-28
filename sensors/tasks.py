@@ -21,10 +21,14 @@ def revisar_si_alerta(alerta_interna,alerta_publica,i,s, fecha):
     tipo_problema = alerta_interna
     anterior = cache.get(i)
     obj = {}
-    if anterior:
+    if anterior and not anterior.get('alertado',False):
+        # print i, s, anterior        
         if anterior['tipo_problema'] == tipo_problema:
-            if (fecha - anterior['fecha_hora']).seconds ==30:
+            if (fecha - anterior['fecha_hora']).seconds >=30:
                 Alerta.objects.create(tipo=alerta_publica,fecha_hora=anterior['fecha_hora'],num_sensor=i)
+                obj ={'fecha_hora':fecha,'valor':s,'tipo_problema':tipo_problema,'alertado':True }
+                cache.set(i,obj)
+            
         else:
             obj ={'fecha_hora':fecha,'valor':s,'tipo_problema':tipo_problema }
             cache.set(i,obj)
@@ -57,11 +61,13 @@ def SensorSave():
     cache.set('info_sensores', temp_con)
     for i, s in enumerate(sensores):
         #llaves del tipo {'fecha_hora', 'valor',  tipo_problema, contador }
-        if s>100: 
+        s = int(s)
+        if s>=100: 
             alerta_interna = 2
             alerta_publica = 3
             revisar_si_alerta(alerta_interna,alerta_publica,i,s, fecha)
-        if s<=0:
+        elif s<=0:
+            # print 'valor erroneo'
             alerta_interna = 1
             alerta_publica = 4
             revisar_si_alerta(alerta_interna,alerta_publica,i,s, fecha)
