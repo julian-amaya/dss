@@ -4,7 +4,7 @@ from django.template.context import RequestContext
 from django.shortcuts import get_list_or_404, get_object_or_404, render_to_response, redirect
 
 from decorators import json_response
-
+from django.core.cache import cache
 from sensors.models import ValorSensor
 
 def home(request):
@@ -19,5 +19,5 @@ def home(request):
 @json_response
 def data_sensores(request):
     data = {}
-    data['alertas'] = []
+    data['sensores'] = cache.get('info_sensores')
     return data
