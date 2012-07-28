@@ -10,7 +10,7 @@ urlpatterns = patterns('',
     # url(r'^dss/', include('dss.foo.urls')),
 	url(r'^data/$', 'sensors.views.data_sensores' ),
 
-	url(r'^call_celery/$', 'sensors.views.celery' ),
+	url(r'^call_celery/$', 'sensors.views.call_celery' ),
 
     url(r'^mark_alert/(?P<id>\d+)$', 'sensors.views.mark_alert' ),
 
