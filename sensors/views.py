@@ -9,11 +9,6 @@ from sensors.models import ValorSensor, Alerta
 
 def home(request):
     data = {}
-
-    valores = ValorSensor.objects.all()
-    p = Paginator(valores, 2)
-
-    data['paginator'] = p
     return render_to_response('index.html', data,context_instance=RequestContext(request)) 
 
 @json_response
@@ -22,3 +17,4 @@ def data_sensores(request):
     data['alertas'] = [a.to_json_dict() for a in Alerta.objects.filter(ya_visto=False)]
     data['sensores'] = cache.get('info_sensores')
     return data
+

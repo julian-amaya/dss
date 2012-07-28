@@ -1,31 +1,58 @@
 <html>
 <head>
 	<title>Alertas de la Estrella de la Muerte de Django</title>
+	<link href="{{STATIC_URL}}css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<h1>Alertas de la Estrella de la Muerte de Django</h1>
-	<div id="alerta">
+	<div class="container">
+		<h1>Estrella de la Muerte de Django</h1>
+		<div id="alerta" class="{{alerta}}">
 
+		</div>
+		<ul id="alertas">
+			<li class="caido">
+				<span>Caido</span>
+				<span>2</span>
+				<span>Julio 28 de 2012, 12:20</span>
+			</li>
+			<li class="caido">
+				<span>Caido</span>
+				<span>3</span>
+				<span>Julio 28 de 2012, 12:20</span>
+			</li>
+			<li class="defectuoso">
+				<span>Caido</span>
+				<span>5</span>
+				<span>Julio 28 de 2012, 12:20</span>
+			</li>
+		</ul>
+		<p class="ultima">
+			Última actualización: <span id="fecha">Julio 28 de 2012, 12:20</span>
+		</p>
+		<ul id="sensores">
+			<li>
+				<span>1</span>
+				<span>OK</span>
+			</li>
+			<li class="caido">
+				<span>2</span>
+				<span>Caido</span>
+			</li>
+			<li class="caido">
+				<span>3</span>
+				<span>Caido</span>
+			</li>
+			<li>
+				<span>4</span>
+				<span>OK</span>
+			</li>
+			<li class="defectuoso">
+				<span>4</span>
+				<span>Defectuoso</span>
+			</li>
+		</ul>
 	</div>
-	<ul id="sensores">
-		{#% for indicador in sensores.object_list %#}
-		{% for indicador in sensores.object_list %}
-		<li>
-			<span class="fecha">{{indicador.fecha_hora|date:"d-M-Y H:i:s"}}</span>
-			<span>{{indicador.num_sensor}}</span>
-			<span>{{indicador.valor}}</span>
-			<span>{{indicador.problema}}</span>
-		</li>
-		{% endfor %}
-	</ul>
-	<ul id="pages">
-		{% for page in sensores.paginator.num_pages %}
-		<li></li>
-		{% endfor %}
-	</ul>
-	<!--
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
-	script type="" src="{{STATIC_URL}}js/alertas.js"></script
--->
+	<script src="{{STATIC_URL}}js/mootools.all.js"></script> 
+	<script type="" src="{{STATIC_URL}}js/alertas.js"></script>
 </body>
 </html>
