@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Alertas de la Estrella de la Muerte de Django</title>
+	<title>Estrella de la Muerte</title> 
 	<link href="{{STATIC_URL}}css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -16,6 +16,7 @@
 		<div id="alerta" class="{{alerta}}">
 
 		</div>
+		<div id="chart_div"></div>
 		<ul id="alertas">
 		</ul>
 		<p class="ultima">
@@ -25,6 +26,7 @@
 		</ul>
 	</div>
 	<script src="{{STATIC_URL}}js/mootools.all.js"></script> 
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script type="" src="{{STATIC_URL}}js/alertas.js"></script>
 	<audio autoplay="true" controlls="false" loop="loop">
 		<source src="{{STATIC_URL}}audio/song.mp3" type="audio/mp3" />

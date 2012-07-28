@@ -32,9 +32,11 @@
 
 				//Event listening
 				this.alertas.addEvent('click:relay(.revised)', this.removeRevised)
+				this.sensores.addEvent('click:relay(.sensor)', this.showChart)
 
 				//Check each second
 				interval = setInterval(this.fetch, 1000)
+				google.load("visualization", "1", {packages:["corechart"]});
 				// this.fetch()
 			},
 
@@ -85,7 +87,8 @@
 				for(i=0;i<sensores.length; i++){
 					sensor = new Element('li', {
 						html: '<span>'+i+'['+sensores[i]+']</span> <span>'+(errorNames[cache[i]]||'OK')+'</span>',
-						'class': 't'+(cache[i]||'OK')
+						'class': 'sensor t'+(cache[i]||'OK'),
+						'data-id': sensores[i]
 						})
 					docfrag2.appendChild(sensor)
 				}
@@ -136,6 +139,33 @@
 					url: '/mark_alert/'+id,
 					onSuccess: function(){}
 				}).get()
+			},
+
+			showChart: function(evt, target){
+				var req = new Request.JSON({
+						url: '/graph/'+target.get('data-id'),
+						onSuccess: function(response){
+							var array = response, i=0, segs =['Segs', 'Segs'],
+								superArray =[]
+							
+							superArray.push(segs)
+							for(i=0; i<array.length; i++){
+								superArray.push([i, + array[i]])
+							}
+
+							var data = google.visualization.arrayToDataTable(superArray);
+
+							var options = {
+							title: 'Company Performance'
+							};
+
+							var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+								chart.draw(data, options);
+
+							new Fx.Scroll(window).toElement('chart_div')
+								
+						}
+					}).get()
 			}
 		}),
 		alerta = new Alerta()
