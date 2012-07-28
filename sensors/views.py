@@ -20,6 +20,17 @@ def data_sensores(request):
     data['sensores'] = cache.get('info_sensores')
     return data
 
+
 def call_celery(request):
 	SensorSave.delay()
 	return HttpResponse("probando celery")
+
+@json_response
+def mark_alert(request,id):
+    try:
+        a = Alerta.objects.get(id=id)
+        a.ya_visto = True
+        a.save()
+        return "OK"
+    except:
+        return "not OK"
