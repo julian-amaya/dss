@@ -19,6 +19,6 @@ def home(request):
 @json_response
 def data_sensores(request):
     data = {}
-    data['alertas'] = [a.to_json_dict() for a in Alerta.objects.all()]
+    data['alertas'] = [a.to_json_dict() for a in Alerta.objects.filter(ya_visto=False)]
     data['sensores'] = cache.get('info_sensores')
     return data
