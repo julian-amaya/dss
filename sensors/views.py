@@ -4,20 +4,17 @@ from django.template.context import RequestContext
 from django.shortcuts import get_list_or_404, get_object_or_404, render_to_response, redirect
 
 from decorators import json_response
-
-from sensors.models import ValorSensor
+from django.core.cache import cache
+from sensors.models import ValorSensor, Alerta
 
 def home(request):
     data = {}
-
-    valores = ValorSensor.objects.all()
-    p = Paginator(valores, 2)
-
-    data['paginator'] = p
     return render_to_response('index.html', data,context_instance=RequestContext(request)) 
 
 @json_response
 def data_sensores(request):
     data = {}
-    data['alertas'] = []
+    data['alertas'] = [a.to_json_dict() for a in Alerta.objects.filter(ya_visto=False)]
+    data['sensores'] = cache.get('info_sensores')
     return data
+

@@ -1,0 +1,74 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+
+
+$caido: #ae1e1e;
+$defectuoso: #F7E143;
+
+
+@font-face {
+    font-family: 'StarJediOutlineRegular';
+    src: url('../fonts/starjhol-webfont.eot');
+    src: url('../fonts/starjhol-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/starjhol-webfont.woff') format('woff'),
+         url('../fonts/starjhol-webfont.ttf') format('truetype'),
+         url('../fonts/starjhol-webfont.svg#StarJediOutlineRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+html{
+	background: black;
+}
+body{
+	font-family: sans-serif;
+}
+.container{
+	width: 600;
+	margin: auto;
+}
+
+h1{
+	font-size: 3em;
+	color: white;
+	font-family: "StarJediOutlineRegular";
+	text-transform: uppercase;
+	color: yellow;
+	line-height: 0.8em;
+	margin-bottom: 1em;
+}
+
+
+ul{
+	margin-bottom: 3em;	
+}
+li{
+	padding: 0.25em;
+	background: green;
+	color: white;
+
+	&.caido{
+		background: $caido;
+	}
+	&.defectuoso{
+		color: black;
+		background: $defectuoso;
+	}
+	span{
+		display: inline-block;
+	}
+}
+.ultima{
+	color: white;
+	margin-bottom: 1em;
+}
+#alertas{
+	span:first-child{
+		width: 5em;
+	}
+}

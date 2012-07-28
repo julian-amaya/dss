@@ -22,8 +22,6 @@ def revisar_si_alerta(tipo):
 		obj ={'fecha_hora':fecha,'valor':s,'tipo_problema':tipo_problema }
 		cache.set(i,obj)
 
-
-
 @task
 def SensorSave():
 	print 'lolo'

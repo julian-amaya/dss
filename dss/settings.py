@@ -3,7 +3,7 @@ import os
 import djcelery
 djcelery.setup_loader()
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -30,7 +30,8 @@ DATABASES = {
        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
    }
 }
-
+import dj_database_url
+DATABASES = {'default': dj_database_url.config(default='postgres://dss:dss@10.10.10.67/dss')}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -138,12 +139,17 @@ INSTALLED_APPS = (
     'sensors',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+    'kombu.transport.django',
     'djcelery',
     'djcelery.transport',
+    'gunicorn',
 )
-BROKER_URL = 'django://'
 
-CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+BROKER_BACKEND = 'django'
+
+# BROKER_URL = 'django://'
+
+# CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
 CACHES = {
     'default': {

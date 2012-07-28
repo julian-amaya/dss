@@ -2,15 +2,15 @@ from django.db import models
 
 # Create your models here.
 
+PROBLEMA = (
+    (0, 'Normal'),
+    (1, 'Alerta Interna defectuoso'),
+    (2, 'Alerta Interna ataque'),
+    (3, 'Alerta Ataque'),
+    (4, 'Alerta Defectuoso'),
+)
 
 class ValorSensor(models.Model):
-    PROBLEMA = (
-        (0, 'Normal')
-        (1, 'Alerta Interna defectuoso'),
-        (2, 'Alerta Interna ataque'),
-        (3, 'Alerta Ataque'),
-        (4, 'Alerta Defectuoso'),
-    )
     fecha_hora = models.DateTimeField()
     valor = models.IntegerField()
     num_sensor = models.IntegerField()
@@ -38,12 +38,20 @@ class ValorSensor(models.Model):
         super(ValorSensor, self).save(*args, **kwargs)
 
 
-
-
+# 3, 4
+ALERTA_CHOICES = (
+    # (0, 'Normal'),
+    # (1, 'Alerta Interna defectuoso'),
+    # (2, 'Alerta Interna ataque'),
+    (3, 'Alerta Ataque'),
+    (4, 'Alerta Defectuoso'),
+)
 class Alerta(models.Model):
-    tipo = models.IntegerField()
+    tipo = models.IntegerField(choices=ALERTA_CHOICES)
     fecha_hora = models.DateTimeField()
     num_sensor = models.IntegerField()
+    ya_visto = models.BooleanField(default=False)
+
 
     def to_json_dict(self):
-        return: {'tipo':self.tipo,'fecha_hora':self.fecha_hora,'num_sensor':self.numsensor}
+        return {'tipo':self.tipo,'fecha_hora':str(self.fecha_hora),'num_sensor':self.num_sensor}
