@@ -33,6 +33,9 @@
 				//Event listening
 				this.alertas.addEvent('click:relay(.revised)', this.removeRevised)
 				this.sensores.addEvent('click:relay(.sensor)', this.showChart)
+				$$('#chartContainer .close'). addEvent('click', function(){
+					$('chartContainer').dissolve()
+				})
 
 				//Check each second
 				interval = setInterval(this.fetch, 1000)
