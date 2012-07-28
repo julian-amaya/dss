@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 PROBLEMA = (
-    (0, 'Normal')
+    (0, 'Normal'),
     (1, 'Alerta Interna defectuoso'),
     (2, 'Alerta Interna ataque'),
     (3, 'Alerta Ataque'),
