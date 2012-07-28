@@ -148,24 +148,24 @@ INSTALLED_APPS = (
 BROKER_BACKEND = 'django'
 
 
+# REDIS_DB = 0
+# REDIS_CONNECT_RETRY = True
+# CELERY_RESULT_BACKEND = 'redis'
+# CELERY_REDIS_PORT = 9333
+# CELERY_REDIS_PASSWORD = '7109efd5f43b84b2cd05c645b1d52ad8'
+# CELERY_REDIS_HOST = 'koi.redistogo.com'
+# BROKER_URL = os.getenv('REDISTOGO_URL', 'redis://julianamaya:7109efd5f43b84b2cd05c645b1d52ad8@koi.redistogo.com:933')
+# BROKER_TRANSPORT = 'redis'
+# BROKER_BACKEND = 'redis'
+# BROKER_PORT = CELERY_REDIS_PORT
+# BROKER_HOST = CELERY_REDIS_HOST
+# BROKER_VHOST = '/'
+# BROKER_PASSWORD = CELERY_REDIS_PASSWORD
+# CELERYD_CONCURRENCY = 1
+# CELERY_RESULT_PORT = 9104
+# CELERY_TASK_RESULT_EXPIRES = 60 * 10
 # import os
 if [(i,k) for i,k in os.environ.items() if 'heroku' in k]: #detect heroku somehow reliably
-    REDIS_DB = 0
-    REDIS_CONNECT_RETRY = True
-    CELERY_RESULT_BACKEND = 'redis'
-    CELERY_REDIS_PORT = 9104
-    CELERY_REDIS_PASSWORD = '93a4b2c92dc0e07f0f9c82e806108fc1'
-    CELERY_REDIS_HOST = 'gar.redistogo.com'
-    BROKER_URL = os.getenv('REDISTOGO_URL', 'redis://localhost') 
-    BROKER_TRANSPORT = 'redis'
-    BROKER_BACKEND = 'redis'
-    BROKER_PORT = CELERY_REDIS_PORT
-    BROKER_HOST = CELERY_REDIS_HOST
-    BROKER_VHOST = '/'
-    BROKER_PASSWORD = CELERY_REDIS_PASSWORD
-    CELERYD_CONCURRENCY = 1
-    CELERY_RESULT_PORT = 9104
-    CELERY_TASK_RESULT_EXPIRES = 60 * 10
 
     CACHES = {
         'default': {
