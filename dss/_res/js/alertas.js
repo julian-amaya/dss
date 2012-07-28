@@ -9,6 +9,7 @@
 			request: null,
 			fecha: null,
 			remove: null,
+			zonelimit: 0,
 
 			/**
 			 * Inicializa la clase de Alerta
@@ -26,10 +27,6 @@
 				this.request = new Request.JSON({
 					url: '/data/',
 					onSuccess: this.render
-				})
-				this.remove = new Request.JSON({
-					url: '/mark_alert/',
-					onSuccess: function(){}
 				})
 
 				//Event listening
@@ -49,23 +46,26 @@
 				var docfrag = document.createDocumentFragment(),
 					docfrag2 = document.createDocumentFragment(),
 					sensores, sensor, alerta, i, fecha,
-					cache = {}, zones = {1:0,2:0,3:0,4:0}, zonelimit
+					cache = {},
+					errorNames = {3: 'Ataque', 4: 'Defectuoso'}
+
+				this.zones = {0:0,1:0,2:0,3:0}
 
 				//Load the sensores data or an empty array
 				sensores = response.sensores ? response.sensores.split(',') : []
 				//How many sensors per each zone
-				zonelimit = sensores.length/4
+				this.zonelimit = Math.floor(sensores.length/4)
 				
 				//Carga de Alertas
 				this.alertas.empty()
 				for(i=0;i<response.alertas.length; i++){
 					alerta = new Element('li', {
-						html: '<span>'+response.alertas[i].tipo+'</span> <span>'+response.alertas[i].num_sensor+'</span> <span>'+response.alertas[i].fecha_hora+'</span> <button data-id="'+response.alertas[i].num_sensor+'" class="revised">Revisado</button>',
+						html: '<span>'+errorNames[response.alertas[i].tipo]+'</span> <span>'+response.alertas[i].num_sensor+'</span> <span>'+response.alertas[i].fecha_hora+'</span> <button data-id="'+response.alertas[i].num_sensor+'" class="revised">Revisado</button>',
 						'class': 't'+response.alertas[i].tipo
 						})
-					cache[response.alertas[i].sensor] = response.alertas[i].tipo
+					cache[response.alertas[i].num_sensor] = response.alertas[i].tipo
 					if(response.alertas[i].tipo > 2){
-						zones[Math.floor(response.alertas[i].num_sensor/zonelimit)] = 1
+						this.zones[Math.floor(response.alertas[i].num_sensor/4)] ++
 					}
 					docfrag.appendChild(alerta)
 				}
@@ -77,12 +77,10 @@
 
 				this.sensores.empty()
 
-				console.log(sensores)
-
 				for(i=0;i<sensores.length; i++){
 					sensor = new Element('li', {
-						html: '<span>'+sensores[i]+'</span> <span>'+(cache[i]||'OK')+'</span>',
-						'class': cache[i]||'OK'
+						html: '<span>'+i+'['+sensores[i]+']</span> <span>'+(errorNames[cache[i]]||'OK')+'</span>',
+						'class': 't'+(cache[i]||'OK')
 						})
 					docfrag2.appendChild(sensor)
 				}
@@ -91,10 +89,10 @@
 				
 				//Death Star Alert update
 				for(i=0;i<=4;i++){
-					if(zones[i]){
-						$$('#deathStar .row'+i).removeClass('danger')
-					}else{
+					if(this.zones[i]){
 						$$('#deathStar .row'+i).addClass('danger')
+					}else{
+						$$('#deathStar .row'+i).removeClass('danger')
 					}
 				}
 			},
@@ -116,9 +114,23 @@
 			 * @return void
 			 */
 			removeRevised: function(evt, target){
-				var id = target.get('data-id')
-				target.dispose()
-				this.remove.get({id: id})
+				var id = target.get('data-id'),
+					parent = target.getParent('li'),
+					count
+
+				parent.set('reveal',{duration: 300})
+				parent.dissolve()
+				
+				this.zones[Math.floor(id/4)] --
+
+				if((count=this.zones[Math.floor(id/4)]) === 0){
+					$$('#deathStar .row'+(Math.floor(id/4))).removeClass('danger')
+				}
+
+				new Request.JSON({
+					url: '/mark_alert/'+id,
+					onSuccess: function(){}
+				}).get()
 			}
 		}),
 		alerta = new Alerta()
