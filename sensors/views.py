@@ -22,7 +22,7 @@ def data_sensores(request):
 
 
 def call_celery(request):
-	SensorSave.delay()
+	SensorSave()#.delay()
 	return HttpResponse("probando celery")
 
 @json_response
