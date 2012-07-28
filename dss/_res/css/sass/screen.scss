@@ -111,7 +111,9 @@ li{
 		color: rgba(255, 255, 255, 0.89);
 		padding: 0.3em;
 		cursor: pointer;
-		@include border-radius(5em);
+		@include border-radius(8px);
+		@include box-shadow(2px 2px 1px rgba(0,0,0,0.5));
+		background-image: -webkit-linear-gradient(20% rgba(0,0,0,0.5), rgba(0,0,0,1));
 	}
 }
 .ultima{
