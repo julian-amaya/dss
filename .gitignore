@@ -1,0 +1,17 @@
+*.pyc
+*~
+*.project
+/media/.sass-cache
+/_res/css/.sass-cache/
+/_res/landing/.sass-cache/
+_res/.sass-cache
+_res/landing/.sass-cache
+media/
+static/
+*.pydevproject
+.settings
+docs/domicilios.uml~
+*.DS_Store
+_res/css/src/template/_shit
+_res/js/monoku/
+whoosh_index/
