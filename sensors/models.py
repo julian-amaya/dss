@@ -8,13 +8,13 @@ class ValorSensor(models.Model):
     	(1, 'Alerta Global'),
     	(2, 'Defectuoso'),
     )
-	fecha_hora = DateTimeField()
-	valor = IntegerField()
-	num_sensor = IntegerField()
-	problema = IntegerField(choices=PROBLEMA)
-	fecha_problema = DateTimeField(null=True,blank=True)
+	fecha_hora = models.DateTimeField()
+	valor = models.IntegerField()
+	num_sensor = models.IntegerField()
+	problema = models.IntegerField(choices=PROBLEMA)
+	fecha_problema = models.DateTimeField(null=True,blank=True)
 
 class Alerta(models.Model):
-	valor = IntegerField()
-	fecha_hora = DateTimeField()
-	num_sensor = IntegerField()
+	valor = models.IntegerField()
+	fecha_hora = models.DateTimeField()
+	num_sensor = models.IntegerField()
