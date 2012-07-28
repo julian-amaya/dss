@@ -181,7 +181,7 @@ else:
         'default': {
             'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
             'LOCATION': '10.10.10.67:11211',
-            'TIMEOUT: 3000',
+            'TIMEOUT': 3000',
         }
     }
     DATABASES = {
@@ -192,7 +192,7 @@ else:
            'PASSWORD': 'dss',                  # Not used with sqlite3.
            'HOST': '10.10.10.67',                      # Set to empty string for localhost. Not used with sqlite3.
            'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-           'TIMEOUT: 3000',
+           'TIMEOUT': 3000,
        }
 }
 # BROKER_URL = 'django://'
