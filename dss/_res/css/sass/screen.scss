@@ -119,6 +119,14 @@ li{
 		@include box-shadow(2px 2px 1px rgba(0,0,0,0.5));
 	}
 }
+#chartContainer{
+	position: absolute;
+	width: 500px;
+	height: 400px;
+	display: none;
+	left: 50%;
+	margin-left: -250px;
+}
 .ultima{
 	color: white;
 	margin-bottom: 1em;

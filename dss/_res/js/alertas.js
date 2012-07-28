@@ -36,6 +36,7 @@
 
 				//Check each second
 				interval = setInterval(this.fetch, 1000)
+				this.fetch()
 				google.load("visualization", "1", {packages:["corechart"]});
 				// this.fetch()
 			},
@@ -156,13 +157,17 @@
 							var data = google.visualization.arrayToDataTable(superArray);
 
 							var options = {
-							title: 'Company Performance'
+							title: 'Sensor '+target.get('data-id')
 							};
 
 							var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 								chart.draw(data, options);
 
-							new Fx.Scroll(window).toElement('chart_div')
+							$('chartContainer').setStyles({
+								top: target.getPosition().y
+							}).reveal()
+
+							// new Fx.Scroll(window).toElement('chart_div')
 								
 						}
 					}).get()
