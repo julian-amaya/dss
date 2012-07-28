@@ -50,7 +50,7 @@ def SensorSave():
             alerta_publica = 4
             revisar_si_alerta(alerta_interna,alerta_publica,i,s, fecha)
         else:
-            pass
+            cache.delete(i)
 
 
 
