@@ -22,9 +22,7 @@ def revisar_si_alerta(alerta_interna,alerta_publica,i,s, fecha):
     anterior = cache.get(i)
     obj = {}
     if anterior and not anterior.get('alertado',False):
-        # print i, s, anterior
-        if s<=0:
-            print 'valor erroneo'
+        # print i, s, anterior        
         if anterior['tipo_problema'] == tipo_problema:
             if (fecha - anterior['fecha_hora']).seconds >=30:
                 Alerta.objects.create(tipo=alerta_publica,fecha_hora=anterior['fecha_hora'],num_sensor=i)
