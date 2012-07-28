@@ -46,4 +46,4 @@ class Alerta(models.Model):
     num_sensor = models.IntegerField()
 
     def to_json_dict(self):
-        return: {'tipo':self.tipo,'fecha_hora':self.fecha_hora,'num_sensor':self.numsensor}
+        return {'tipo':self.tipo,'fecha_hora':self.fecha_hora,'num_sensor':self.numsensor}
