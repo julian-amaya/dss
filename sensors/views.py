@@ -5,7 +5,7 @@ from django.shortcuts import get_list_or_404, get_object_or_404, render_to_respo
 
 from decorators import json_response
 from django.core.cache import cache
-from sensors.models import ValorSensor
+from sensors.models import ValorSensor, Alerta
 
 def home(request):
     data = {}
@@ -19,5 +19,6 @@ def home(request):
 @json_response
 def data_sensores(request):
     data = {}
+    data['alertas'] = [a.to_json_dict() for a in Alerta.objects.all()]
     data['sensores'] = cache.get('info_sensores')
     return data
