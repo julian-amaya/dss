@@ -1,4 +1,5 @@
 # Django settings for dss project.
+import sys
 import os
 import djcelery
 djcelery.setup_loader()
@@ -146,7 +147,6 @@ BROKER_URL = 'django://'
 
 BROKER_BACKEND = 'django'
 
-
 # import os
 if [(i,k) for i,k in os.environ.items() if 'heroku' in k]: #detect heroku somehow reliably
     REDIS_DB = 0
@@ -181,5 +181,17 @@ else:
 # BROKER_URL = 'django://'
 
 # CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+
+
+#################################################################
+#Configure Database for test
+#################################################################
+
+if 'test' in sys.argv:
+    try:
+        from test_settings import *
+    except:
+        pass
+
 
 

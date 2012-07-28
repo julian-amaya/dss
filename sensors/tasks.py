@@ -14,7 +14,7 @@ def revisar_si_alerta(alerta_interna,alerta_publica,i,s):
 	if anterior:
 		if anterior['tipo_problema'] == tipo_problema:
 			if (fecha - anterior['fecha_hora']).seconds ==30:
-				Alerta.objects.create(tipo=alerta_publica,num_sensor)
+				Alerta.objects.create(tipo=alerta_publica,fecha_hora=anterior['fecha_hora'],num_sensor=i)
 		else:
 			obj ={'fecha_hora':fecha,'valor':s,'tipo_problema':tipo_problema }
 			cache.set(i,obj)

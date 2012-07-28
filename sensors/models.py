@@ -54,4 +54,4 @@ class Alerta(models.Model):
 
 
     def to_json_dict(self):
-        return {'tipo':self.tipo,'fecha_hora':str(self.fecha_hora),'num_sensor':self.num_sensor}
+        return {'id':self.id,'tipo':self.tipo,'fecha_hora':str(self.fecha_hora),'num_sensor':self.num_sensor}
