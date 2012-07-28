@@ -92,7 +92,7 @@
 					sensor = new Element('li', {
 						html: '<span>'+i+'['+sensores[i]+']</span> <span>'+(errorNames[cache[i]]||'OK')+'</span>',
 						'class': 'sensor t'+(cache[i]||'OK'),
-						'data-id': sensores[i]
+						'data-id': i
 						})
 					docfrag2.appendChild(sensor)
 				}
@@ -146,8 +146,9 @@
 			},
 
 			showChart: function(evt, target){
-				var req = new Request.JSON({
-						url: '/graph/'+target.get('data-id'),
+				var id = target.get('data-id'),
+					req = new Request.JSON({
+						url: '/graph/'+id,
 						onSuccess: function(response){
 							var array = response, i=0, segs =['Segs', 'Segs'],
 								superArray =[]
@@ -160,7 +161,7 @@
 							var data = google.visualization.arrayToDataTable(superArray);
 
 							var options = {
-							title: 'Sensor '+target.get('data-id')
+							title: 'Sensor '+id
 							};
 
 							var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
