@@ -43,7 +43,6 @@ def SensorSave():
     luego revisa el estado de cada uno de los sensores.
     
     '''
-    print 'lolo'
     res = obtener_datos()
     a = res.content
     cache.set('info_sensores', a)
