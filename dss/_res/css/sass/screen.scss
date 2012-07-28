@@ -8,7 +8,7 @@
 
 
 $caido: rgba(255, 40, 31, 0.51);
-$defectuoso: #F7E143;
+$defectuoso: rgba(247, 225, 67, 0.64);
 
 
 @font-face {
@@ -37,9 +37,9 @@ body{
 #deathStar{
 	width: 200px;
 	height: 200px;
-	position: absolute;
+	position: relative;
 	top: 20px;
-	left: 20px;
+	left: 200px;
 	background: url(../img/star/death_star.png) top left no-repeat;
 }
 .row0,
@@ -90,11 +90,11 @@ li{
 	@include border-radius(5px);
 
 	&.t3{
-		background: $caido;
+		background: url(../img/rebel_ico.png) $caido 95% 4px no-repeat;
 	}
 	&.t4{
 		color: black;
-		background: $defectuoso;
+		background: url(../img/storm_ico.png) $defectuoso 95% 4px no-repeat;
 	}
 	span{
 		display: block;
