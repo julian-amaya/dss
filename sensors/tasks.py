@@ -41,7 +41,8 @@ def SensorSave():
     '''
     Funcion que correra cada segundo solicitando datos al servidor deathstart
     luego revisa el estado de cada uno de los sensores.
-    
+
+    Al final de cada ciclo se mantiene en memcache los ultimos 60 datos de cada sensor
     '''
     res = obtener_datos()
     a = res.content
@@ -65,6 +66,13 @@ def SensorSave():
             revisar_si_alerta(alerta_interna,alerta_publica,i,s, fecha)
         else:
             cache.delete(i)
+
+        '''Guarda los ultimos 60 segundos de cada sensor'''
+        ultimos = cache.get('u60_%d'%(i),[])
+        ultimos.append(s)
+        ultimos = ultimos[-60:]
+        cache.set('u60_%d'%(i),ultimos)
+
     SensorSave.apply_async(countdown=1)
 
 
