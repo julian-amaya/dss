@@ -151,10 +151,10 @@ BROKER_BACKEND = 'django'
 
 # CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
+
+
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '10.10.10.67:11211',
+        'BACKEND': 'django_pylibmc.memcached.PyLibMCCache'
     }
 }
-
