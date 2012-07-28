@@ -1,0 +1,14 @@
+Django==1.4
+South==0.7.5
+amqplib==1.0.2
+anyjson==0.3.3
+billiard==2.7.3.10
+celery==3.0.4
+dj-database-url==0.2.1
+django-celery==3.0.4
+kombu==2.3.0
+psycopg2==2.4.5
+python-dateutil==1.5
+python-memcached==1.48
+requests==0.13.5
+wsgiref==0.1.2
