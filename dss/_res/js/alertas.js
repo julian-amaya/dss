@@ -54,7 +54,7 @@
 
 
 				//Load the sensores data or an empty array
-				sensores = response.sensores ? response.sensores.split(',').slice(0,20) : []
+				sensores = response.sensores ? response.sensores.split(',') : []
 				//How many sensors per each zone
 				
 				//Carga de Alertas
@@ -143,24 +143,26 @@
 
 			showChart: function(evt, target){
 				var req = new Request.JSON({
-						url: '/graph/'+target.id,
+						url: '/graph/'+target.get('data-id'),
 						onSuccess: function(response){
 							var array = response, i=0, segs =['Segs', 'Segs'],
 								superArray =[]
 							
 							superArray.push(segs)
 							for(i=0; i<array.length; i++){
-								superArray.push([i, array[i]])
+								superArray.push([i, + array[i]])
 							}
 
 							var data = google.visualization.arrayToDataTable(superArray);
 
-								var options = {
-								title: 'Company Performance'
-								};
+							var options = {
+							title: 'Company Performance'
+							};
 
-								var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-									chart.draw(data, options);
+							var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+								chart.draw(data, options);
+
+							new Fx.Scroll(window).toElement('chart_div')
 								
 						}
 					}).get()
