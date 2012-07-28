@@ -3,6 +3,8 @@ from django.core.paginator import Paginator
 from django.template.context import RequestContext
 from django.shortcuts import get_list_or_404, get_object_or_404, render_to_response, redirect
 
+from decorators import json_response
+
 from sensors.models import ValorSensor
 
 def home(request):
@@ -13,3 +15,9 @@ def home(request):
 
     data['paginator'] = p
     return render_to_response('index.html', data,context_instance=RequestContext(request)) 
+
+@json_response
+def data_sensores(request):
+    data = {}
+    data['alertas'] = []
+    return data

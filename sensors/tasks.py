@@ -5,6 +5,7 @@ import datetime
 from sensors.models import ValorSensor
 
 
+
 @task
 def SensorSave():
     print 'lolo'
