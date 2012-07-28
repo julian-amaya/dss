@@ -33,8 +33,8 @@
 				this.alertas.addEvent('click:relay(.revised)', this.removeRevised)
 
 				//Check each second
-				// interval = setInterval(this.fetch, 1000)
-				this.fetch()
+				interval = setInterval(this.fetch, 1000)
+				// this.fetch()
 			},
 
 			/**

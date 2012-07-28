@@ -4,6 +4,7 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
 @import "compass/reset";
+@import "compass/css3"; 
 
 
 $caido: rgba(255, 40, 31, 0.51);
@@ -81,12 +82,12 @@ ul{
 }
 li{
 	padding: 0.25em;
-	background: #0C960C;
+	background: rgba(5, 202, 5, 0.54);
 	color: white;
 	float: left;
 	width: 22%;
 	margin: 0.2em;
-	border-radius: 5px;
+	@include border-radius(5px);
 
 	&.t3{
 		background: $caido;
@@ -101,8 +102,18 @@ li{
 		padding: 0.2em;
 	}
 	button{
-		// background: white;
-		// color: 
+		display: block;
+		width: 100%;
+		background: rgba(0, 0, 0, 0.38);
+		border: none;
+		font-weight: bold;
+		font-size: 0.8em;
+		color: rgba(255, 255, 255, 0.89);
+		padding: 0.3em;
+		cursor: pointer;
+		@include border-radius(8px);
+		@include box-shadow(2px 2px 1px rgba(0,0,0,0.5));
+		background-image: -webkit-linear-gradient(20% rgba(0,0,0,0.5), rgba(0,0,0,1));
 	}
 }
 .ultima{
