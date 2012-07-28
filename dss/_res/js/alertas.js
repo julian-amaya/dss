@@ -36,36 +36,36 @@
 				this.alertas.addEvent('click:relay(.revised)', this.removeRevised)
 
 				//Check each second
-				interval = setInterval(this.fetch, 1000)
-				// this.fetch()
+				// interval = setInterval(this.fetch, 1000)
+				this.fetch()
 			},
 
 			/**
 			 * Renderiza la respuesta del servidor
-			 * @param  {Object} reponse {alertas: [], sensores: 'date,1,2,3,4...'}
+			 * @param  {Object} response {alertas: [], sensores: 'date,1,2,3,4...'}
 			 * @return void
 			 */
-			render: function(reponse){
+			render: function(response){
 				var docfrag = document.createDocumentFragment(),
 					docfrag2 = document.createDocumentFragment(),
 					sensores, sensor, alerta, i, fecha,
 					cache = {}, zones = {1:0,2:0,3:0,4:0}, zonelimit
 
 				//Load the sensores data or an empty array
-				sensores = reponse.sensores ? response.sensores.split(',') : []
+				sensores = response.sensores ? response.sensores.split(',') : []
 				//How many sensors per each zone
 				zonelimit = sensores.length/4
 				
 				//Carga de Alertas
 				this.alertas.empty()
-				for(i=0;i<reponse.alertas.length; i++){
+				for(i=0;i<response.alertas.length; i++){
 					alerta = new Element('li', {
-						html: '<span>'+reponse.alertas[i].tipo+'</span> <span>'+reponse.alertas[i].num_sensor+'</span> <span>'+reponse.alertas[i].fecha_hora+'</span> <button data-id="'+reponse.alertas[i].num_sensor+'" class="revised">Revisado</button>',
-						'class': reponse.alertas[i].tipo
+						html: '<span>'+response.alertas[i].tipo+'</span> <span>'+response.alertas[i].num_sensor+'</span> <span>'+response.alertas[i].fecha_hora+'</span> <button data-id="'+response.alertas[i].num_sensor+'" class="revised">Revisado</button>',
+						'class': 't'+response.alertas[i].tipo
 						})
-					cache[reponse.alertas[i].sensor] = reponse.alertas[i].tipo
-					if(reponse.alertas[i].tipo > 2){
-						zones[Math.floor(reponse.alertas[i].num_sensor/zonelimit)] = 1
+					cache[response.alertas[i].sensor] = response.alertas[i].tipo
+					if(response.alertas[i].tipo > 2){
+						zones[Math.floor(response.alertas[i].num_sensor/zonelimit)] = 1
 					}
 					docfrag.appendChild(alerta)
 				}
@@ -77,15 +77,17 @@
 
 				this.sensores.empty()
 
+				console.log(sensores)
+
 				for(i=0;i<sensores.length; i++){
 					sensor = new Element('li', {
-						html: '<span>'+sensores[i].num_sensor+'</span> <span>'+(cache[i]||'OK')+'</span>',
+						html: '<span>'+sensores[i]+'</span> <span>'+(cache[i]||'OK')+'</span>',
 						'class': cache[i]||'OK'
 						})
 					docfrag2.appendChild(sensor)
 				}
 
-				this.sensores.appendChild(docfrag)
+				this.sensores.appendChild(docfrag2)
 				
 				//Death Star Alert update
 				for(i=0;i<=4;i++){

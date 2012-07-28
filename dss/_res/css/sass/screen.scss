@@ -6,7 +6,7 @@
 @import "compass/reset";
 
 
-$caido: #ae1e1e;
+$caido: rgba(255, 40, 31, 0.51);
 $defectuoso: #F7E143;
 
 
@@ -47,16 +47,16 @@ body{
 .row4{
 	height: 50px;
 }
-.row1.error{
+.row1.danger{
 	background: url(../img/star/death_1.png)
 }
-.row2.error{
+.row2.danger{
 	background: url(../img/star/death_2.png)
 }
-.row3.error{
+.row3.danger{
 	background: url(../img/star/death_3.png)
 }
-.row4.error{
+.row4.danger{
 	background: url(../img/star/death_4.png)
 }
 .container{
@@ -76,22 +76,27 @@ h1{
 
 
 ul{
-	margin-bottom: 3em;	
+	margin-bottom: 3em;
+	border-radius: 5px;
+	overflow: hidden;
 }
 li{
 	padding: 0.25em;
 	background: #0C960C;
 	color: white;
+	float: left;
+	width: 22%;
 
-	&.caido{
+	&.t3{
 		background: $caido;
 	}
-	&.defectuoso{
+	&.t4{
 		color: black;
 		background: $defectuoso;
 	}
 	span{
-		display: inline-block;
+		display: block;
+		text-align: left;
 	}
 	button{
 		// background: white;
@@ -105,6 +110,7 @@ li{
 #alertas{
 	span:first-child{
 		width: 5em;
+		margin-left: 1em;
 	}
 	span:nth-child(2){
 		width: 6em;
@@ -113,6 +119,7 @@ li{
 #sensores{
 	span:first-child{
 		width: 5em;
+		margin-left: 1em;
 	}
 	span:nth-child(2){
 	}
