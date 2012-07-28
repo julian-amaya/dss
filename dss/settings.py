@@ -8,18 +8,27 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
+#path al root del proyecto
+PROJECT_ROOT = os.path.dirname (
+            os.path.dirname(
+              os.path.abspath(__file__)
+            )
+          )
+
+
 MANAGERS = ADMINS
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'dss',                      # Or path to database file if using sqlite3.
-        'USER': 'dss',                      # Not used with sqlite3.
-        'PASSWORD': 'dss',                  # Not used with sqlite3.
-        'HOST': '10.10.10.67',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+       'NAME': 'dss',                      # Or path to database file if using sqlite3.
+       'USER': 'dss',                      # Not used with sqlite3.
+       'PASSWORD': 'dss',                  # Not used with sqlite3.
+       'HOST': '10.10.10.67',                      # Set to empty string for localhost. Not used with sqlite3.
+       'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+   }
 }
+
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -122,11 +131,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     'south',
     'sensors',
     # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admindocs',
 )
 
 
