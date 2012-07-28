@@ -54,4 +54,5 @@ class Alerta(models.Model):
 
 
     def to_json_dict(self):
-        return {'id':self.id,'tipo':self.tipo,'fecha_hora':str(self.fecha_hora),'num_sensor':self.num_sensor}
+        fecha_bonita = self.fecha_hora.strftime('%I:%M:%S %p')
+        return {'id':self.id,'tipo':self.tipo,'fecha_hora':fecha_bonita,'num_sensor':self.num_sensor}
