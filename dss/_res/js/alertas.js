@@ -10,6 +10,7 @@
 			fecha: null,
 			remove: null,
 			zonelimit: 0,
+			alertas_cache: [],
 
 			/**
 			 * Inicializa la clase de Alerta
@@ -49,27 +50,31 @@
 					cache = {},
 					errorNames = {3: 'Ataque', 4: 'Defectuoso'}
 
-				this.zones = {0:0,1:0,2:0,3:0}
 
 				//Load the sensores data or an empty array
 				sensores = response.sensores ? response.sensores.split(',') : []
 				//How many sensors per each zone
-				this.zonelimit = Math.floor(sensores.length/4)
 				
 				//Carga de Alertas
-				this.alertas.empty()
-				for(i=0;i<response.alertas.length; i++){
-					alerta = new Element('li', {
-						html: '<span>'+errorNames[response.alertas[i].tipo]+'</span> <span>'+response.alertas[i].num_sensor+'</span> <span>'+response.alertas[i].fecha_hora+'</span> <button data-id="'+response.alertas[i].num_sensor+'" class="revised">Revisado</button>',
-						'class': 't'+response.alertas[i].tipo
-						})
-					cache[response.alertas[i].num_sensor] = response.alertas[i].tipo
-					if(response.alertas[i].tipo > 2){
-						this.zones[Math.floor(response.alertas[i].num_sensor/4)] ++
+				if(this.alertas_cache !== JSON.encode(response.alertas)){
+					this.alertas_cache = JSON.encode(response.alertas)
+					this.zones = {0:0,1:0,2:0,3:0}
+					this.zonelimit = Math.floor(sensores.length/4)
+					
+					this.alertas.empty()
+					for(i=0;i<response.alertas.length; i++){
+						alerta = new Element('li', {
+							html: '<span>'+errorNames[response.alertas[i].tipo]+'</span> <span>'+response.alertas[i].num_sensor+'</span> <span>'+response.alertas[i].fecha_hora+'</span> <button data-id="'+response.alertas[i].id+'" class="revised">Revisado</button>',
+							'class': 't'+response.alertas[i].tipo
+							})
+						cache[response.alertas[i].num_sensor] = response.alertas[i].tipo
+						if(response.alertas[i].tipo > 2){
+							this.zones[Math.floor(response.alertas[i].num_sensor/4)] ++
+						}
+						docfrag.appendChild(alerta)
 					}
-					docfrag.appendChild(alerta)
+					this.alertas.appendChild(docfrag)
 				}
-				this.alertas.appendChild(docfrag)
 
 				//Carga de Sensores y Fecha
 				fecha = sensores.shift()

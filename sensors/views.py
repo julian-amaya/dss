@@ -24,6 +24,7 @@ def data_sensores(request):
     """
     data = {}
     data['alertas'] = [a.to_json_dict() for a in Alerta.objects.filter(ya_visto=False)]
+    sensor_d = cache.get('info_sensores')
     data['sensores'] = cache.get('info_sensores')
     return data
 
