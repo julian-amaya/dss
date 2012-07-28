@@ -18,3 +18,12 @@ def data_sensores(request):
     data['sensores'] = cache.get('info_sensores')
     return data
 
+@json_response
+def mark_alert(request,id):
+    try:
+        a = Alerta.objects.get(id=id)
+        a.ya_visto = True
+        a.save()
+        return "OK"
+    except:
+        return "not OK"

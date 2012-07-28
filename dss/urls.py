@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     url(r'^$', 'sensors.views.home', name='home'),
     # url(r'^dss/', include('dss.foo.urls')),
 	url(r'^data/$', 'sensors.views.data_sensores' ),
+    url(r'^mark_alert/(?P<id>\d+)$', 'sensors.views.mark_alert' ),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
