@@ -23,7 +23,7 @@ $defectuoso: #F7E143;
 
 
 html{
-	background: url(../img/stars.gif) top left repeat;
+	background: url(../img/stars.jpg) top left repeat;
 }
 body{
 	font-family: sans-serif;
@@ -34,22 +34,33 @@ body{
 }
 
 #deathStar{
-	background: gray;
 	width: 200px;
 	height: 200px;
 	position: absolute;
-	top: 0;
-	left: 0;
+	top: 20px;
+	left: 20px;
+	background: url(../img/star/death_star.png) top left no-repeat;
 }
 .row1,
 .row2,
 .row3,
 .row4{
 	height: 50px;
-	background: red;
+}
+.row1.error{
+	background: url(../img/star/death_1.png)
+}
+.row2.error{
+	background: url(../img/star/death_2.png)
+}
+.row3.error{
+	background: url(../img/star/death_3.png)
+}
+.row4.error{
+	background: url(../img/star/death_4.png)
 }
 .container{
-	width: 600;
+	width: 600px;
 	margin: auto;
 }
 
