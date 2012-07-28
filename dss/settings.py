@@ -138,7 +138,9 @@ INSTALLED_APPS = (
     'sensors',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-	'djcelery',
+    'djcelery',
+    'djcelery.transport',
 )
+BROKER_URL = 'django://'
 
-
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'

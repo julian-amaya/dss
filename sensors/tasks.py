@@ -7,6 +7,7 @@ from sensors.models import ValorSensor
 
 @task
 def SensorSave():
+    print 'lolo'
     res = requests.get('http://deathstartsensor.herokuapp.com/?star=django')
     a = res.content
     b = a.split(',')
