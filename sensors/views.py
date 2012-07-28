@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from decorators import json_response
 from django.core.cache import cache
 from sensors.models import ValorSensor, Alerta
-from task import SensorSave
+from tasks import SensorSave
 
 def home(request):
     data = {}
