@@ -45,7 +45,6 @@ def SensorSave():
     '''
     res = obtener_datos()
     a = res.content
-    cache.set('info_sensores', a)
     b = a.split(',')
     fecha = b[0]
     sensores = b[1:]
@@ -53,6 +52,8 @@ def SensorSave():
     fecha = fecha[:-6]
     #print fecha
     fecha = datetime.datetime.strptime(fecha, "%Y-%m-%dT%H:%M:%S")
+    temp_con = fecha.strftime('%I:%M:%S %p') + ',' + ','.join(sensores)
+    cache.set('info_sensores', temp_con)
     for i, s in enumerate(sensores):
         #llaves del tipo {'fecha_hora', 'valor',  tipo_problema, contador }
         if s>100: 
@@ -65,7 +66,7 @@ def SensorSave():
             revisar_si_alerta(alerta_interna,alerta_publica,i,s, fecha)
         else:
             cache.delete(i)
-    SensorSave.apply_async(countdown=1)
+    SensorSave.apply_async()
 
 
 
