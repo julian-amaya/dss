@@ -7,7 +7,17 @@ from django.core.cache import cache
 
 
 def revisar_si_alerta(alerta_interna,alerta_publica,i,s, fecha):
-    #i es numero de sensor s es el valor del sensor
+    '''
+    resiva si la lectura de sensores actual va a generar alertas para
+    mostrar en el front end.
+
+    alerta_interna:codigo interno de la alerta de cada sensor
+    alerta_publica: codigo publico luego de una acumulacion de alertas internas.
+    i: codigo del sensor
+    s: valor del sensor
+    fecha: fecha de la alerta actual
+    '''
+
     tipo_problema = alerta_interna
     anterior = cache.get(i)
     obj = {}
@@ -28,10 +38,13 @@ def obtener_datos():
 
 @task
 def SensorSave():
-    print 'lolo'
+    '''
+    Funcion que correra cada segundo solicitando datos al servidor deathstart
+    luego revisa el estado de cada uno de los sensores.
+    
+    '''
     res = obtener_datos()
     a = res.content
-    cache.set('info_sensores', a)
     b = a.split(',')
     fecha = b[0]
     sensores = b[1:]
@@ -39,6 +52,8 @@ def SensorSave():
     fecha = fecha[:-6]
     #print fecha
     fecha = datetime.datetime.strptime(fecha, "%Y-%m-%dT%H:%M:%S")
+    temp_con = fecha.strftime('%I:%M:%S %p') + ',' + ','.join(sensores)
+    cache.set('info_sensores', temp_con)
     for i, s in enumerate(sensores):
         #llaves del tipo {'fecha_hora', 'valor',  tipo_problema, contador }
         if s>100: 

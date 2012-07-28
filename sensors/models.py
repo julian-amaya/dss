@@ -11,6 +11,10 @@ PROBLEMA = (
 )
 
 class ValorSensor(models.Model):
+    '''
+    Tabla para guardar los valores de sensores - no se esta usando pero 
+    se guarda por backcompatibility
+    '''
     fecha_hora = models.DateTimeField()
     valor = models.IntegerField()
     num_sensor = models.IntegerField()
@@ -18,24 +22,6 @@ class ValorSensor(models.Model):
     #fecha_problema = models.DateTimeField(null=True,blank=True)
     contador = models.IntegerField(null=True,blank=True)
 
-    def save(self, *args, **kwargs):
-
-        # try:
-        #     vs = ValorSensor.objects.order_by('-fecha_hora')[0]
-        #     if vs.fecha_problema:
-        #         # si hay problema, reviso si yo sigo en problema y si ha pasado suficiente tiempo 
-        #         # y creo alerta
-        #         if (self.fecha_hora - vs.fecha_hora).seconds > 2:
-        #             # sensor defectuoso
-        #             self.problema = 2
-        #         if valor <100:
-        #             #en este caso no hay problemas
-        #             self.fecha_problema = None
-        #         elif valor == 0:
-        #             #en este caso hay problema
-        # except:
-        #     pass
-        super(ValorSensor, self).save(*args, **kwargs)
 
 
 # 3, 4
@@ -47,6 +33,9 @@ ALERTA_CHOICES = (
     (4, 'Alerta Defectuoso'),
 )
 class Alerta(models.Model):
+    '''
+    Modelo alerta, guarda todas las alertas publicas generadas.
+    '''
     tipo = models.IntegerField(choices=ALERTA_CHOICES)
     fecha_hora = models.DateTimeField()
     num_sensor = models.IntegerField()
@@ -54,5 +43,8 @@ class Alerta(models.Model):
 
 
     def to_json_dict(self):
+        '''
+        Convierte este modelo a json para que se pueda utilizar mas facil en las vistas
+        '''
         fecha_bonita = self.fecha_hora.strftime('%I:%M:%S %p')
         return {'id':self.id,'tipo':self.tipo,'fecha_hora':fecha_bonita,'num_sensor':self.num_sensor}
