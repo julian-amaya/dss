@@ -45,3 +45,8 @@ def mark_alert(request,id):
         return "OK"
     except:
         return "not OK"
+
+
+@json_response
+def graph(request,id):
+    return cache.get('u60_%s'%(id),[])

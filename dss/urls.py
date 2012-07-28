@@ -14,6 +14,9 @@ urlpatterns = patterns('',
 
     url(r'^mark_alert/(?P<id>\d+)$', 'sensors.views.mark_alert' ),
 
+    #Url que entrega los datos de un sensor para que se grafique
+    url(r'^graph/(?P<id>\d+)$', 'sensors.views.graph' ),
+
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
