@@ -6,6 +6,7 @@ billiard==2.7.3.10
 celery==3.0.4
 dj-database-url==0.2.1
 django-celery==3.0.4
+gunicorn==0.14.6
 kombu==2.3.0
 psycopg2==2.4.5
 python-dateutil==1.5
