@@ -68,6 +68,7 @@ def SensorSave():
         else:
             cache.delete(i)
 
+
         '''Guarda los ultimos 60 segundos de cada sensor'''
         ultimos = cache.get('u60_%d'%(i),[])
         ultimos.append(s)
