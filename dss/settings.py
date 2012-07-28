@@ -143,12 +143,43 @@ INSTALLED_APPS = (
 )
 BROKER_URL = 'django://'
 
-CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '10.10.10.67:11211',
+BROKER_BACKEND = 'django'
+
+
+# import os
+if [(i,k) for i,k in os.environ.items() if 'heroku' in k]: #detect heroku somehow reliably
+    REDIS_DB = 0
+    REDIS_CONNECT_RETRY = True
+    CELERY_RESULT_BACKEND = 'redis'
+    CELERY_REDIS_PORT = 9104
+    CELERY_REDIS_PASSWORD = '93a4b2c92dc0e07f0f9c82e806108fc1'
+    CELERY_REDIS_HOST = 'gar.redistogo.com'
+    BROKER_URL = os.getenv('REDISTOGO_URL', 'redis://localhost') 
+    BROKER_TRANSPORT = 'redis'
+    BROKER_BACKEND = 'redis'
+    BROKER_PORT = CELERY_REDIS_PORT
+    BROKER_HOST = CELERY_REDIS_HOST
+    BROKER_VHOST = '/'
+    BROKER_PASSWORD = CELERY_REDIS_PASSWORD
+    CELERYD_CONCURRENCY = 1
+    CELERY_RESULT_PORT = 9104
+    CELERY_TASK_RESULT_EXPIRES = 60 * 10
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_pylibmc.memcached.PyLibMCCache'
+        }
     }
-}
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '10.10.10.67:11211',
+        }
+    }
+# BROKER_URL = 'django://'
+
+# CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+
 
