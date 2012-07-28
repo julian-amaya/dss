@@ -1,5 +1,7 @@
 # Django settings for dss project.
 import os
+import djcelery
+djcelery.setup_loader()
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -136,6 +138,7 @@ INSTALLED_APPS = (
     'sensors',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+	'djcelery',
 )
 
 
