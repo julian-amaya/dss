@@ -66,7 +66,7 @@ def SensorSave():
             revisar_si_alerta(alerta_interna,alerta_publica,i,s, fecha)
         else:
             cache.delete(i)
-    SensorSave.apply_async(countdown=1)
+    SensorSave.apply_async()
 
 
 
